@@ -5,9 +5,11 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+const dbUrl = `mongodb+srv://admin:${process.env.PASS_DB}@cluster0-1o9kj.mongodb.net/test?retryWrites=true&w=majority`;
+
 const db = mongoose.connection;
 mongoose.connect(
-  'mongodb+srv://admin:admin@cluster0-1o9kj.mongodb.net/test?retryWrites=true&w=majority',
+  dbUrl,
   { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true },
 );
 

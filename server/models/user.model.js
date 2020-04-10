@@ -26,10 +26,9 @@ module.exports = {
       type: String,
       required: [true, 'password required'],
       validate: {
-        validator: (password) => {
-          return password.length >= 8;
+        validator: function(pass) {
+          return pass.length >= 8;
         },
-        message: 'Minimum password 8 characters',
       },
     },
     role: {

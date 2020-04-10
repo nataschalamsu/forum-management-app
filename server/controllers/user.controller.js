@@ -10,9 +10,9 @@ module.exports = {
       firstName,
       lastName,
     } = req.body;
+
     let role = req.body.role || 'user';
     let hashed = bcrypt.hashSync(password, bcrypt.genSaltSync());
-    password = hashed
     let newUser = new users({  
       email, 
       password,
@@ -22,21 +22,50 @@ module.exports = {
     });
 
     newUser
-      .save((err, result) => {
-      if(err) {
+      .save()
+      .then(result => {
+        users
+          .findOneAndUpdate({
+            email: result.email,
+          }, { password: hashed })
+          .then(result => {
+            const { _id, email, firstName, lastName, role } = result;
+            res
+              .status(201)
+              .json({
+                _id,
+                email,
+                firstName,
+                lastName,
+                role,
+              })
+          })
+          .catch(err => {
+            res
+              .status(400)
+              .json(err)
+          })
+      })
+      .catch(err => {
         res
           .status(400)
-          .json({
-            message: err
-          })
-      } else {
-        res
-          .status(201)
-          .json({
-            newData: result
-          })
-      }
-    })
+          .json({ message: err })
+      })
+      // (err, result) => {
+      //   if(err) {
+      //     res
+      //       .status(400)
+      //       .json({
+      //         message: err
+      //       })
+      //   } else {
+      //     res
+      //       .status(201)
+      //       .json({
+      //         newData: result
+      //       })
+      //   }
+      // }
   },
   signIn: (req, res) => {
     const { email, password } = req.body;

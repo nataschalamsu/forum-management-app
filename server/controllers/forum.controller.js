@@ -11,7 +11,6 @@ module.exports = {
     newPost
       .save()
       .then(result => {
-        console.log(result);
         users
           .findByIdAndUpdate(
             { _id: userId },
@@ -66,7 +65,6 @@ module.exports = {
         _id: req.params.id
       })
       .then(result => {
-        console.log(result);
         users
           .findByIdAndUpdate({
             _id: userId,
@@ -78,10 +76,10 @@ module.exports = {
               .status(200)
               .json({
                 message: 'successfully deleted',
+                response,
               })
           })
           .catch(err => {
-            console.log(err);
             res
               .status(400)
               .json({
@@ -90,7 +88,6 @@ module.exports = {
           })
       })
       .catch(err => {
-        console.log(err);
         res
           .status(400)
           .json({
