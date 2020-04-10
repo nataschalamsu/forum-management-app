@@ -1,28 +1,44 @@
-const { comments, forumModel } = require('../models');
+const { comments, forumModel, users } = require('../models');
 
 module.exports = {
-  submitForum: (req, res) => {
-    const user = req.headers.decoded.userId;
+  createPost: (req, res) => {
+    const { userId } = req.headers.decoded;
     let { title, content } = req.body;
     let image = req.imageURL;
-    let tag = req.body.tag || 'Unknown';
-    let newArticle = new forumModel({ user, title, content, image, tag });
+    let tag = req.body.tag || null;
+    let newPost = new forumModel({ userId, title, content, image, tag });
 
-    newArticle
-      .save(function(err, added) {
-        if (!err) {
-          res
-            .status(201)
-            .json( added )
-        } else {
-          res
+    newPost
+      .save()
+      .then(result => {
+        console.log(result);
+        users
+          .findByIdAndUpdate(
+            { _id: userId },
+            { $push: { post: result }}
+          )
+          .then(response => {
+            res
+              .status(200)
+              .json({
+                message: 'successfully posted',
+                post: response,
+              })
+          })
+          .catch(err => {
+            res
+              .status(400)
+              .json(err)
+          })
+      })
+      .catch(err => {
+        res
           .status(400)
           .json(err)
-        }
-      });
+      })
   },
-  getArticleList: (req, res) => {
-    article
+  getAllPost: (req, res) => {
+    forumModel
       .find()
       .populate('user')
       .populate({
@@ -31,10 +47,10 @@ module.exports = {
           path: 'user',
         }],
       })
-      .then(articles => {
+      .then(post => {
         res
           .status(200)
-          .json(articles)
+          .json(post)
       })
       .catch(err => {
         res
@@ -42,24 +58,48 @@ module.exports = {
           .json(err)
       })
   },
-  deleteArticle: (req,res) => {
-    article
+  deletePost: (req,res) => {
+    const { userId } = req.headers.decoded;
+
+    forumModel
       .findByIdAndRemove({
         _id: req.params.id
-      }, function(err, result) {
-        if (!err) {
-          res
-            .status(200)
-            .json(result)
-        } else {
-          res
-            .status(400)
-            .json(err)
-        }
+      })
+      .then(result => {
+        console.log(result);
+        users
+          .findByIdAndUpdate({
+            _id: userId,
+          }, {
+            $pull: { post: req.params.id }
+          })
+          .then(response => {
+            res
+              .status(200)
+              .json({
+                message: 'successfully deleted',
+              })
+          })
+          .catch(err => {
+            console.log(err);
+            res
+              .status(400)
+              .json({
+                error: err,
+              })
+          })
+      })
+      .catch(err => {
+        console.log(err);
+        res
+          .status(400)
+          .json({
+            error: err,
+          })
       })
   },
-  updateArticle: (req, res) => {
-    article
+  updatePost: (req, res) => {
+    forumModel
       .findByIdAndUpdate({
         _id: req.params.id
       }, req.body, function(err, updated) {
@@ -74,8 +114,8 @@ module.exports = {
         }
       })
   },
-  getArticleById: function(req, res) {
-    article
+  getPostById: (req, res) => {
+    forumModel
       .find({
         _id: req.params.id
       })
@@ -90,21 +130,21 @@ module.exports = {
         res
           .status(200)
           .send({
-            message: 'article by id',
-            article: result,
+            message: 'post by id',
+            post: result,
           })
       })
       .catch(err => {
         res
           .status(400)
           .send({
-            error: err
+            error: err,
           })
       })
   },
-  postComment: (req, res) => {
+  createComment: (req, res) => {
     const idUser = req.headers.decoded.userId;
-    const { comment } = req.body;
+    const { comment, id } = req.body;
     const newComment = new comments({ 
       user: idUser, 
       comment,
@@ -112,9 +152,9 @@ module.exports = {
     newComment
       .save()
       .then(result => {
-        article
+        forumModel
           .findByIdAndUpdate({
-            _id: req.body.id,
+            _id: id,
           }, {
             $push: {
               comments: result.id,

@@ -1,14 +1,14 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 module.exports = {
   title: {
     type: String,
-    required: [true, 'article required']
+    required: [true, 'title required'],
   },
   content: {
     type: String,
-    required: [true, 'write the content']
-  },
-  image: {
-    type: String
+    required: [true, 'content required'],
   },
   tag: String,
   user: {

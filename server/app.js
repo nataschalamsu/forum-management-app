@@ -6,9 +6,14 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const db = mongoose.connection;
-mongoose.connect('mongodb+srv://admin:admin@cluster0-1o9kj.mongodb.net/test?retryWrites=true&w=majority');
+mongoose.connect(
+  'mongodb+srv://admin:admin@cluster0-1o9kj.mongodb.net/test?retryWrites=true&w=majority',
+  { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true },
+);
 
 // GET ROUTES HERE
+const forumRoutes = require('./routes/forum.routes');
+const userRoutes = require('./routes/user.routes');
 
 app.use(cors());
 app.use(express.json());
@@ -21,10 +26,12 @@ db.once('open', function() {
 });
 
 app.get('/', (req, res) => {
-    res.send('mongoose CRUD');
+    res.send('Hello World');
 });
 
 // USE ROUTES HERE
+app.use('/forum', forumRoutes);
+app.use('/users', userRoutes);
 
 app.listen(3000, (connect => {
     console.log('--- CONNECTED ---');

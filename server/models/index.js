@@ -26,7 +26,7 @@ const userSchema = Schema(
 );
 
 const comments = mongoose.model('comment', commentSchema);
-const forumModel = mongoose.model('comment', forumSchema);
+const forumModel = mongoose.model('forum', forumSchema);
 const users = mongoose.model('user', userSchema);
 
 module.exports = {
