@@ -17,7 +17,7 @@ app.use(morgan('dev'));
 
 db.on('error', console.error.bind(console, 'Connection Error: '));
 db.once('open', function() {
-    console.log('---Mongoose Connected---');
+    console.log('--- Mongoose Connected ---');
 });
 
 app.get('/', (req, res) => {
