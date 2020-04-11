@@ -101,7 +101,7 @@ module.exports = {
   },
   getUserById: (req, res) => {
     users
-      .find({ _id: req.headers.decoded.userId })
+      .findById({ _id: req.headers.decoded.userId })
       .populate({
         path: 'post',
         model: 'forum',
@@ -118,10 +118,7 @@ module.exports = {
       .then(result => {
         res
           .status(200)
-          .send({
-            message: 'user by id',
-            user: result,
-          }) 
+          .send(result) 
       })
       .catch(err => {
         res
