@@ -101,7 +101,7 @@ module.exports = {
   },
   getUserById: (req, res) => {
     users
-      .find({ _id: req.params.id })
+      .find({ _id: req.headers.decoded.userId })
       .populate({
         path: 'post',
         model: 'forum',

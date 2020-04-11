@@ -8,8 +8,8 @@ const {
 } = usersController;
 
 routes
+  .get('/', isLogin, getUserById)
   .post('/login', signIn)
   .post('/signup', signUp)
-  .get('/:id', isLogin, getUserById)
 
 module.exports = routes;
