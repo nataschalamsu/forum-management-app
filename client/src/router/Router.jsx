@@ -5,6 +5,7 @@ import ProtectedRoute from './ProtectedRoute';
 import Login from '../pages/Login/Login';
 import SignUp from '../pages/SignUp/SignUp';
 import Home from '../pages/Home/Home';
+import MyPost from '../pages/MyPost/MyPost';
 import CreatePost from '../pages/CreatePost/CreatePost';
 
 const Router = () => (
@@ -12,13 +13,18 @@ const Router = () => (
     <Switch>
       <ProtectedRoute
         exact
-        path="/create"
-        component={CreatePost}
+        path="/"
+        component={Home}
       />
       <ProtectedRoute
         exact
-        path="/"
-        component={Home}
+        path="/my-post"
+        component={MyPost}
+      />
+      <ProtectedRoute
+        exact
+        path="/create"
+        component={CreatePost}
       />
       <Route
         exact

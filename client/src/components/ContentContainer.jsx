@@ -6,6 +6,7 @@ import { contentWrapperStyles, titleStyles, commentWrapperStyles, buttonStyles, 
 
 const ContentContainer = ({ post, submitComment }) => {
   const [commentValue, setComment] = useState('');
+  const [isLoading, setLoadingStatus] = useState(false);
   const {
     _id,
     title,
@@ -18,6 +19,7 @@ const ContentContainer = ({ post, submitComment }) => {
   };
 
   const onSubmit = () => {
+    setLoadingStatus(true);
     const data = {
       comment: commentValue,
       id: _id,
@@ -25,6 +27,7 @@ const ContentContainer = ({ post, submitComment }) => {
 
     submitComment(data);
     setComment('');
+    setLoadingStatus(false);
   };
 
   return (
@@ -40,8 +43,8 @@ const ContentContainer = ({ post, submitComment }) => {
         </div>
       )}
       <div css={commentWrapperStyles}>
-        <textarea name="comment" id="comment" cols="30" rows="10" css={textAreaStyles} placeholder="Write your comment..." onChange={(e) => handleChangeComment(e.target.value)}/>
-        <button css={buttonStyles} onClick={() => onSubmit()}>Comment</button>
+        <textarea name="comment" id="comment" cols="30" rows="5" css={textAreaStyles} placeholder="Write your comment..." onChange={(e) => handleChangeComment(e.target.value)}/>
+          <button css={buttonStyles} onClick={() => onSubmit()}>{isLoading ? 'Loading..' : 'Comment'}</button>
       </div>
     </div>
   );

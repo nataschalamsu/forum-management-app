@@ -11,5 +11,5 @@ export default async () => {
     },
   });
 
-  return response.data;
+  return response.data.post;
 };
