@@ -1,11 +1,12 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import AppContext from '../../App.context';
 import Layout from '../../layout/Layout';
 import { buttonStyles, signUpPageStyles, signUpFormWrapper, inputStyles } from './SignUp.styles';
-import signUp from './SignUp.service';
 
 const SignUp = () => {
+  const { submitSignUp } = useContext(AppContext);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -27,7 +28,7 @@ const SignUp = () => {
     setPassword(value);
   };
 
-  const submitSignUp = async () => {
+  const onSubmit = () => {
     const data = {
       firstName,
       lastName,
@@ -35,7 +36,7 @@ const SignUp = () => {
       password,
     };
 
-    await signUp(data);
+    submitSignUp(data);
   };
 
   return (
@@ -48,7 +49,7 @@ const SignUp = () => {
           <input css={inputStyles} type="text" name="lastName" id="lastName" placeholder="Last Name" onChange={(e) => handleChangeLastName(e.target.value)} />
           <input css={inputStyles} type="text" name="email" id="email" placeholder="Email" onChange={(e) => handleChangeEmail(e.target.value)} />
           <input css={inputStyles} type="password" name="password" id="password" placeholder="Password" onChange={(e) => handleChangePassword(e.target.value)} />
-          <button css={buttonStyles} type="submit" onClick={() => submitSignUp()}>Sign Up</button>
+          <button css={buttonStyles} type="submit" onClick={() => onSubmit()}>Sign Up</button>
         </div>
       </div>
     </Layout>

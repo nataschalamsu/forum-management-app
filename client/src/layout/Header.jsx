@@ -7,12 +7,13 @@ import { displayNameStyles, headerStyles, logoutBtnStyles } from './Header.style
 
 const Header = () => {
   const { logout, userInfo } = useContext(AppContext);
-  const { display_name: displayName } = userInfo;
+  const { firstName, lastName } = userInfo;
+  const displayName = `${firstName} ${lastName}`;
 
   return (
     <div css={headerStyles}>
       <span css={displayNameStyles}>{displayName}</span>
-      <button type="button" css={logoutBtnStyles} onClick={() => logout()}>Logout</button>
+      <button type="button" css={logoutBtnStyles} onClick={() => {}}>Logout</button>
     </div>
   );
 };
