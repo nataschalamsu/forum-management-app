@@ -2,17 +2,28 @@
 import { jsx } from '@emotion/core';
 import { useEffect, useState } from 'react';
 import Layout from '../../layout/Layout';
-import { homePageStyles, postWrapperStyles, contentWrapperStyles, titleStyles } from './Home.styles';
-import getAllPost from './services/get-all-post';
+import { ContentContainer } from '../../components';
+
+import {
+  homePageStyles,
+  postWrapperStyles,
+} from './Home.styles';
+import { getAllPost, createComment } from './services';
 
 const Home = () => {
   const [allPost, setPost] = useState(null);
   const [isLoading, setLoadingStatus] = useState(true);
-  const fetchForumPost = async() => {
+
+  const fetchForumPost = async () => {
     const data = await getAllPost();
-    console.log(data);
+
     setPost(data);
     setLoadingStatus(false);
+  };
+
+  const submitComment = async (data) => {
+    await createComment(data);
+    await fetchForumPost();
   };
 
   useEffect(() => {
@@ -25,10 +36,7 @@ const Home = () => {
     <Layout childStyles={homePageStyles}>
       <div css={postWrapperStyles}>
         {allPost.map(post => (
-          <div css={contentWrapperStyles}>
-            <p css={titleStyles}>{post.title}</p>
-            <span>{post.content}</span>
-          </div>
+          <ContentContainer post={post} submitComment={submitComment} />
         ))}
       </div>
     </Layout>

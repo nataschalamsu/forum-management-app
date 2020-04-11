@@ -24,11 +24,10 @@ const navBarMenu = {
 const Header = () => {
   const { logout, userInfo } = useContext(AppContext);
   const { firstName, lastName } = userInfo;
-  const displayName = `${firstName} ${lastName}`;
 
   return (
     <div css={headerStyles}>
-      <span css={displayNameStyles}>{displayName}</span>
+      <span css={displayNameStyles}>THE FORUM</span>
       <div css={navigationMenuWrapperStyles}>
         {Object.keys(navBarMenu).map(key => (
           <div css={navigationMenuStyles}>

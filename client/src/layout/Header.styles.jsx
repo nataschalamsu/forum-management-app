@@ -13,13 +13,12 @@ export const headerStyles = css`
   background-color: #fff;
   padding: 15px 50px;
   z-index: 500;
-  border-bottom: 5px solid black;
+  box-shadow: 0 10px 10px lightgrey;  
 `;
 
 export const logoutBtnStyles = css`
   background-color: red;
-  border: 5px solid black;
-  border-radius: 50px;
+  border-radius: 10px;
   color: white;
   font-weight: bold;
   padding: 10px;
