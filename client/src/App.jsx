@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Router from './router/Router';
 import './App.css';
 import AppContext from './App.context';
-import { signUp, login } from './services';
+import { signUp, login, currentUser } from './services';
 
 const App = () => {
   const [token, setToken] = useState(null);
@@ -26,12 +26,18 @@ const App = () => {
 
   const submitLogin = async ({ email, password }) => {
     const response = await login(email, password);
-    console.log(response);
+
     setUserInfo(response.nowLogin);
     setToken(response.token);
     localStorage.setItem('_token', response.token);
     setAuthenticatedStatus(true);
     setLoadingStatus(false);
+  };
+
+  const fetchCurrentUser = async () => {
+    const data = await currentUser();
+    console.log('fetch user ', data);
+    setUserInfo(data);
   };
 
   const getToken = () => {
@@ -42,6 +48,7 @@ const App = () => {
       setLoadingStatus(false);
     }
 
+    fetchCurrentUser();
     setAuthenticatedStatus(true);
     setLoadingStatus(false);
   };
