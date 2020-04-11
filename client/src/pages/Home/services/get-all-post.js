@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { URLs } from '../../config';
+import { URLs } from '../../../config';
 
 const { FORUM_URL } = URLs;
 

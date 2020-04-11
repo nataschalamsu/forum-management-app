@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, Global } from '@emotion/core';
 import { useEffect, useState } from 'react';
 import Router from './router/Router';
 import './App.css';
 import AppContext from './App.context';
 import { signUp, login, currentUser } from './services';
+import { globalStyles, resetStyles } from './styles';
 
 const App = () => {
   const [token, setToken] = useState(null);
@@ -36,19 +37,20 @@ const App = () => {
 
   const fetchCurrentUser = async () => {
     const data = await currentUser();
-    console.log('fetch user ', data);
     setUserInfo(data);
+    setAuthenticatedStatus(true);
+    setLoadingStatus(false);
   };
 
-  const getToken = () => {
+  const getToken = async () => {
     const token = localStorage.getItem('_token');
-    console.log(token);
+
     if (!token) {
       setAuthenticatedStatus(false);
       setLoadingStatus(false);
     }
 
-    fetchCurrentUser();
+    await fetchCurrentUser();
     setAuthenticatedStatus(true);
     setLoadingStatus(false);
   };
@@ -59,9 +61,10 @@ const App = () => {
   };
 
   useEffect(() => {
-    getToken();
+    const token = localStorage.getItem('_token');
+    if (token) fetchCurrentUser();
   }, []);
-  console.log('auth ', authenticated);
+
   const appProviderValue = {
     authenticated,
     logout,
@@ -72,11 +75,12 @@ const App = () => {
     userInfo,
   };
 
+  if (isLoading) return 'Loading...';
+
   return (
     <AppContext.Provider value={appProviderValue}>
-      <header className="App-header">
-        <Router />
-      </header>
+      <Global styles={[resetStyles, globalStyles]} />
+      <Router />
     </AppContext.Provider>
   );
 }

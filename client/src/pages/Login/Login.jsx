@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import AppContext from '../../App.context';
 
 import Layout from '../../layout/Layout';
@@ -9,6 +9,7 @@ import { buttonStyles, loginPageStyles, loginFormWrapper, inputStyles } from './
 
 const Login = () => {
   const history = useHistory();
+  const location = useLocation();
   const { authenticated, submitLogin } = useContext(AppContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,7 +33,6 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (authenticated) { history.push('/') }
   });
 
   return (

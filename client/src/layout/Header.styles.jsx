@@ -28,3 +28,22 @@ export const logoutBtnStyles = css`
 export const displayNameStyles = css`
   font-weight: bold;
 `;
+
+export const navigationMenuWrapperStyles = css`
+  display: flex;
+  align-items: center;
+`;
+
+export const navigationMenuStyles = css`
+  padding: 10px;
+`;
+
+export const linkStyles = css`
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+
+  :hover {
+    color: grey;
+  }
+`;
