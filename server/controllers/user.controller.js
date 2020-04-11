@@ -51,21 +51,6 @@ module.exports = {
           .status(400)
           .json({ message: err })
       })
-      // (err, result) => {
-      //   if(err) {
-      //     res
-      //       .status(400)
-      //       .json({
-      //         message: err
-      //       })
-      //   } else {
-      //     res
-      //       .status(201)
-      //       .json({
-      //         newData: result
-      //       })
-      //   }
-      // }
   },
   signIn: (req, res) => {
     const { email, password } = req.body;
@@ -88,11 +73,26 @@ module.exports = {
                 userEmail: userLogin.email,
                 userRole: userLogin.role,
               }, process.env.SECRET);
+
+            const {
+              _id,
+              firstName,
+              lastName,
+              email,
+              role,
+            } = userLogin;
+
             res
               .status(200)
               .send({
-                message: 'login success',
-                nowLogin: userLogin,
+                isLogin: true,
+                nowLogin: {
+                  _id,
+                  firstName,
+                  lastName,
+                  email,
+                  role,
+                },
                 token,
               });
           }
