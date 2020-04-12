@@ -1,4 +1,4 @@
-const URL = 'https://27d3ddf7.ngrok.io';
+const URL = 'https://ab6edd82.ngrok.io';
 
 export const URLs = {
   USER_URL: `${URL}/users`,

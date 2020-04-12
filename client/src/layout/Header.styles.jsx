@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 
-export const headerStyles = css`
+export const headerStyles = (isShowing) => css`
   position: fixed;
   top: 0;
   right: 0;
@@ -9,19 +9,38 @@ export const headerStyles = css`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 85px;
   background-color: #fff;
   padding: 15px 50px;
   z-index: 500;
-  box-shadow: 0 10px 10px lightgrey;  
+  box-shadow: 0 10px 10px lightgrey;
+
+  #menu-toggle {
+    display: none;
+  }
+
+  @media only screen and (max-width: 768px) {
+    #nav-menu {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    #nav-link, #logout-btn {
+      display: ${isShowing ? 'flex' : 'none'};
+      margin: 10px 0;
+    }
+
+    #menu-toggle {
+      display: flex;
+      margin: 10px 0;
+    }
+  }
 `;
 
 export const logoutBtnStyles = css`
-  background-color: red;
-  border-radius: 10px;
-  color: white;
+  color: red;
   font-weight: bold;
-  padding: 10px;
+  text-decoration: none;
 `;
 
 export const displayNameStyles = css`
@@ -30,6 +49,7 @@ export const displayNameStyles = css`
 
 export const navigationMenuWrapperStyles = css`
   display: flex;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -41,6 +61,7 @@ export const linkStyles = css`
   color: black;
   font-weight: bold;
   text-decoration: none;
+  margin: 0 10px 0 10px;
 
   :hover {
     color: grey;

@@ -11,9 +11,10 @@ const App = () => {
   const [token, setToken] = useState(null);
   const [authenticated, setAuthenticatedStatus] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
-  const [isLoading, setLoadingStatus] = useState(true);
+  const [isLoading, setLoadingStatus] = useState(false);
 
   const submitSignUp = ({ firstName, lastName, email, password }) => {
+    setLoadingStatus(true);
     const data = {
       firstName,
       lastName,
@@ -26,6 +27,7 @@ const App = () => {
   };
 
   const submitLogin = async ({ email, password }) => {
+    setLoadingStatus(true);
     const response = await login(email, password);
 
     setUserInfo(response.nowLogin);
@@ -36,21 +38,9 @@ const App = () => {
   };
 
   const fetchCurrentUser = async () => {
+    setLoadingStatus(true);
     const data = await currentUser();
     setUserInfo(data);
-    setAuthenticatedStatus(true);
-    setLoadingStatus(false);
-  };
-
-  const getToken = async () => {
-    const token = localStorage.getItem('_token');
-
-    if (!token) {
-      setAuthenticatedStatus(false);
-      setLoadingStatus(false);
-    }
-
-    await fetchCurrentUser();
     setAuthenticatedStatus(true);
     setLoadingStatus(false);
   };

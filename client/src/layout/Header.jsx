@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import AppContext from '../App.context';
@@ -22,19 +22,26 @@ const navBarMenu = {
 };
 
 const Header = () => {
-  const { logout, userInfo } = useContext(AppContext);
-  const { firstName, lastName } = userInfo;
+  const { logout } = useContext(AppContext);
+  const [isShowing, setShowStatus] = useState(false);
 
+  const toggleMenu = () => {
+    setShowStatus(!isShowing);
+  };
+
+  const header = headerStyles(isShowing);
+  console.log(isShowing);
   return (
-    <div css={headerStyles}>
+    <div css={header}>
       <span css={displayNameStyles}>THE FORUM</span>
-      <div css={navigationMenuWrapperStyles}>
+      <div class="nav-menu" id="nav-menu" css={navigationMenuWrapperStyles}>
         {Object.keys(navBarMenu).map(key => (
-          <div css={navigationMenuStyles}>
-            <NavLink to={navBarMenu[key].link} css={linkStyles}>{navBarMenu[key].name}</NavLink>
-          </div>
+          // <div id="nav-link" css={navigationMenuStyles(key)}>
+            <NavLink id="nav-link" to={navBarMenu[key].link} css={linkStyles}>{navBarMenu[key].name}</NavLink>
+          // </div>
         ))}
-        <button type="button" css={logoutBtnStyles} onClick={() => {}}>Logout</button>
+        <a id="logout-btn" href="javascript:void(0)" css={logoutBtnStyles} onClick={() => logout()}>Logout</a>
+        <a href="javascript:void(0)" onClick={() => toggleMenu()} id="menu-toggle" css={linkStyles}>Menu</a>
       </div>
     </div>
   );

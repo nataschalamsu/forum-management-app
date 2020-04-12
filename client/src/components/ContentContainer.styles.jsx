@@ -11,8 +11,12 @@ export const contentWrapperStyles = css`
 
 export const titleStyles = css`
   font-weight: bold;
-  font-size: 14px;
+  font-size: 16px;
   margin: 0 0 10px 0;
+`;
+
+export const textStyles = css`
+  line-height: 1.6em;
 `;
 
 export const commentContainerStyles = css`

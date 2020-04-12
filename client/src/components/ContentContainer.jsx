@@ -2,7 +2,16 @@
 import { jsx } from '@emotion/core';
 import { useState } from 'react';
 import CommentContainer from './CommentContainer';
-import { contentWrapperStyles, titleStyles, commentWrapperStyles, buttonStyles, textAreaStyles, commentContainerStyles, commentTitleStyles } from './ContentContainer.styles';
+import {
+  contentWrapperStyles,
+  titleStyles,
+  commentWrapperStyles,
+  buttonStyles,
+  textAreaStyles,
+  commentContainerStyles,
+  commentTitleStyles,
+  textStyles,
+} from './ContentContainer.styles';
 
 const ContentContainer = ({ post, submitComment }) => {
   const [commentValue, setComment] = useState('');
@@ -33,7 +42,7 @@ const ContentContainer = ({ post, submitComment }) => {
   return (
     <div css={contentWrapperStyles}>
       <p css={titleStyles}>{title}</p>
-      <span>{content}</span>
+      <span css={textStyles}>{content}</span>
       {comments.length !== 0 && (
         <div css={commentContainerStyles}>
           <p css={commentTitleStyles}>Comments</p>
@@ -44,7 +53,7 @@ const ContentContainer = ({ post, submitComment }) => {
       )}
       <div css={commentWrapperStyles}>
         <textarea name="comment" id="comment" cols="30" rows="5" css={textAreaStyles} placeholder="Write your comment..." onChange={(e) => handleChangeComment(e.target.value)}/>
-          <button css={buttonStyles} onClick={() => onSubmit()}>{isLoading ? 'Loading..' : 'Comment'}</button>
+        <button css={buttonStyles} onClick={() => onSubmit()}>{isLoading ? 'Loading..' : 'Comment'}</button>
       </div>
     </div>
   );

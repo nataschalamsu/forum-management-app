@@ -21,7 +21,7 @@ export const loginFormWrapper = css`
 export const inputStyles = css`
   width: 200px;
   padding: 10px;
-  border: none;
+  border: 1px solid lightgrey;
   border-radius: 50px;
   margin-bottom: 10px;
   outline: none;

@@ -13,6 +13,10 @@ export const createPostWrapper = css`
   flex-direction: column;
   padding: 50px 100px 0 100px;
   min-height: 100vh;
+
+  @media only screen and (max-width: 768px) {
+    padding: 25px 50px;
+  }
 `;
 
 export const titleStyles = css`

@@ -1,5 +1,4 @@
 import { css } from '@emotion/core';
-// import './fontawesome/fontawesome.min.css';
 
 export default css`
   @import url('https://fonts.googleapis.com/css?family=Rubik:400,700,900&display=swap');

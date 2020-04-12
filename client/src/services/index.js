@@ -1,6 +1,6 @@
-import signUp from './SignUp.service';
-import login from './Login.service';
-import currentUser from './User.service';
+import signUp from './signup';
+import login from './login';
+import currentUser from './user';
 
 export {
   signUp,
