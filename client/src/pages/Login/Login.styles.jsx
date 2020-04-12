@@ -15,7 +15,7 @@ export const loginFormWrapper = css`
   justify-content: center;
   align-items: center;
   padding: 25px;
-  margin: 15px 0 0 0;
+  margin: 10px 0;
 `;
 
 export const inputStyles = css`
@@ -34,4 +34,26 @@ export const buttonStyles = css`
   color: #000;
   border: none;
   border-radius: 50px;
+  font-weight: bold;
+
+  :hover {
+    background-color: #a0e8fc;
+    color: #666;
+  }
+`;
+
+export const welcomeTitle = css`
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0 0 10px 0;
+`;
+
+export const textStyles = css`
+  font-size: 12px;
+`;
+
+export const linkStyles = css`
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
 `;

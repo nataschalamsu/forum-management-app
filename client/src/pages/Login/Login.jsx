@@ -5,12 +5,19 @@ import { useHistory, useLocation } from 'react-router-dom';
 import AppContext from '../../App.context';
 
 import Layout from '../../layout/Layout';
-import { buttonStyles, loginPageStyles, loginFormWrapper, inputStyles } from './Login.styles';
+import {
+  buttonStyles,
+  loginPageStyles,
+  loginFormWrapper,
+  inputStyles,
+  welcomeTitle,
+  textStyles,
+  linkStyles,
+} from './Login.styles';
 
 const Login = () => {
   const history = useHistory();
-  const location = useLocation();
-  const { authenticated, submitLogin } = useContext(AppContext);
+  const { submitLogin } = useContext(AppContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -32,19 +39,16 @@ const Login = () => {
     history.push('/');
   };
 
-  useEffect(() => {
-  });
-
   return (
     <Layout clean>
       <div css={loginPageStyles}>
-        <h2>Welcome to Forum</h2>
-        <span>Login</span>
+        <p css={welcomeTitle}>Login</p>
         <div css={loginFormWrapper}>
           <input css={inputStyles} type="text" name="email" id="email" placeholder="Email" onChange={(e) => handleChangeEmail(e.target.value)} />
           <input css={inputStyles} type="password" name="password" id="password" placeholder="Password" onChange={(e) => handleChangePass(e.target.value)} />
           <button css={buttonStyles} type="submit" onClick={() => onSubmit()}>Login</button>
         </div>
+        <span css={textStyles}>Don't have any account? <a href="/signup" css={linkStyles}>Sign Up</a></span>
       </div>
     </Layout>
   );
