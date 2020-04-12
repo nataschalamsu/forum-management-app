@@ -53,10 +53,6 @@ export const navigationMenuWrapperStyles = css`
   align-items: center;
 `;
 
-export const navigationMenuStyles = css`
-  padding: 10px;
-`;
-
 export const linkStyles = css`
   color: black;
   font-weight: bold;

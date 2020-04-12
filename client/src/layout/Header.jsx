@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import AppContext from '../App.context';
-import { displayNameStyles, headerStyles, logoutBtnStyles, navigationMenuWrapperStyles, navigationMenuStyles, linkStyles } from './Header.styles';
+import { displayNameStyles, headerStyles, logoutBtnStyles, navigationMenuWrapperStyles, linkStyles } from './Header.styles';
 
 const navBarMenu = {
   home: {
@@ -30,18 +30,16 @@ const Header = () => {
   };
 
   const header = headerStyles(isShowing);
-  console.log(isShowing);
+
   return (
     <div css={header}>
       <span css={displayNameStyles}>THE FORUM</span>
-      <div class="nav-menu" id="nav-menu" css={navigationMenuWrapperStyles}>
+      <div className="nav-menu" id="nav-menu" css={navigationMenuWrapperStyles}>
         {Object.keys(navBarMenu).map(key => (
-          // <div id="nav-link" css={navigationMenuStyles(key)}>
-            <NavLink id="nav-link" to={navBarMenu[key].link} css={linkStyles}>{navBarMenu[key].name}</NavLink>
-          // </div>
+          <NavLink key={key} id="nav-link" to={navBarMenu[key].link} css={linkStyles}>{navBarMenu[key].name}</NavLink>
         ))}
-        <a id="logout-btn" href="javascript:void(0)" css={logoutBtnStyles} onClick={() => logout()}>Logout</a>
-        <a href="javascript:void(0)" onClick={() => toggleMenu()} id="menu-toggle" css={linkStyles}>Menu</a>
+        <a id="logout-btn" href="" css={logoutBtnStyles} onClick={() => logout()}>Logout</a>
+        <a href="" onClick={() => toggleMenu()} id="menu-toggle" css={linkStyles}>Menu</a>
       </div>
     </div>
   );

@@ -50,4 +50,9 @@ export const buttonStyles = css`
   font-weight: bold;
   color: black;
   outline: none;
+
+  :hover {
+    background-color: #a0e8fc;
+    color: #666;
+  }
 `;

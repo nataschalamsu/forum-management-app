@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useContext, useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import AppContext from '../../App.context';
 
 import Layout from '../../layout/Layout';

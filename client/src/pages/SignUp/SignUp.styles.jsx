@@ -35,6 +35,7 @@ export const buttonStyles = css`
   border: none;
   border-radius: 50px;
   font-weight: bold;
+  outline: none;
 
   :hover {
     background-color: #a0e8fc;

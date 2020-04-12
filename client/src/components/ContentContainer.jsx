@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import CommentContainer from './CommentContainer';
 import {
   contentWrapperStyles,
@@ -11,9 +12,13 @@ import {
   commentContainerStyles,
   commentTitleStyles,
   textStyles,
+  displayNameStyles,
+  postedByStyles,
+  contentHeader,
 } from './ContentContainer.styles';
 
 const ContentContainer = ({ post, submitComment }) => {
+  const { pathname } = useLocation();
   const [commentValue, setComment] = useState('');
   const [isLoading, setLoadingStatus] = useState(false);
   const {
@@ -21,7 +26,11 @@ const ContentContainer = ({ post, submitComment }) => {
     title,
     content,
     comments,
+    user,
   } = post;
+
+  const myPost = pathname.includes('my-post');
+  const displayName = myPost ? 'You' : user ? `${user.firstName} ${user.lastName}` : 'Unknown';
 
   const handleChangeComment = (value) => {
     setComment(value);
@@ -41,13 +50,16 @@ const ContentContainer = ({ post, submitComment }) => {
 
   return (
     <div css={contentWrapperStyles}>
-      <p css={titleStyles}>{title}</p>
+      <div css={contentHeader}>
+        <p css={titleStyles}>{title}</p>
+        <span css={postedByStyles}>Posted by <span css={displayNameStyles}>{displayName}</span></span> 
+      </div>
       <span css={textStyles}>{content}</span>
       {comments.length !== 0 && (
         <div css={commentContainerStyles}>
           <p css={commentTitleStyles}>Comments</p>
           {comments.map(c => (
-            <CommentContainer comment={c} />
+            <CommentContainer key={c.comment} comment={c} />
           ))}
         </div>
       )}

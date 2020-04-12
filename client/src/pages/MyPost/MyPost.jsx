@@ -36,7 +36,7 @@ const MyPost = () => {
     <Layout childStyles={myPostPageStyles}>
       <div css={postWrapperStyles}>
         {allPost.map(post => (
-          <ContentContainer post={post} submitComment={submitComment} />
+          <ContentContainer key={post._id} post={post} submitComment={submitComment} />
         ))}
       </div>
     </Layout>

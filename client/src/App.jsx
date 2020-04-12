@@ -9,12 +9,11 @@ import { globalStyles, resetStyles } from './styles';
 
 const App = () => {
   const [token, setToken] = useState(null);
-  const [authenticated, setAuthenticatedStatus] = useState(false);
+  const [authenticated, setAuthenticatedStatus] = useState(true);
   const [userInfo, setUserInfo] = useState(null);
-  const [isLoading, setLoadingStatus] = useState(false);
+  const [isLoading, setLoadingStatus] = useState(true);
 
   const submitSignUp = ({ firstName, lastName, email, password }) => {
-    setLoadingStatus(true);
     const data = {
       firstName,
       lastName,
@@ -27,18 +26,15 @@ const App = () => {
   };
 
   const submitLogin = async ({ email, password }) => {
-    setLoadingStatus(true);
     const response = await login(email, password);
 
     setUserInfo(response.nowLogin);
     setToken(response.token);
     localStorage.setItem('_token', response.token);
-    setAuthenticatedStatus(true);
     setLoadingStatus(false);
   };
 
   const fetchCurrentUser = async () => {
-    setLoadingStatus(true);
     const data = await currentUser();
     setUserInfo(data);
     setAuthenticatedStatus(true);
@@ -65,7 +61,7 @@ const App = () => {
     userInfo,
   };
 
-  if (isLoading) return 'Loading...';
+  // if (isLoading) return 'Loading...';
 
   return (
     <AppContext.Provider value={appProviderValue}>

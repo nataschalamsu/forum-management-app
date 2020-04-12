@@ -15,6 +15,19 @@ export const titleStyles = css`
   margin: 0 0 10px 0;
 `;
 
+export const contentHeader = css`
+  margin: 0 0 10px 0;
+`;
+
+export const postedByStyles = css`
+  margin: 10px 0;
+  font-size: 12px;
+`;
+
+export const displayNameStyles = css`
+  font-weight: bold;
+`;
+
 export const textStyles = css`
   line-height: 1.6em;
 `;
@@ -57,7 +70,7 @@ export const buttonStyles = css`
   outline: none;
 
   :hover {
-    background-color: #bff0fd;
-    color: grey;
+    background-color: #a0e8fc;
+    color: #666;
   }
 `;
