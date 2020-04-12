@@ -35,6 +35,6 @@ app.get('/', (req, res) => {
 app.use('/forum', forumRoutes);
 app.use('/users', userRoutes);
 
-app.listen(3000, (connect => {
+app.listen(process.env.PORT || 3000, (connect => {
     console.log('--- CONNECTED ---');
 }));
