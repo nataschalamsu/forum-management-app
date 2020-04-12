@@ -6,7 +6,13 @@ module.exports = {
     let { title, content } = req.body;
     let image = req.imageURL;
     let tag = req.body.tag || null;
-    let newPost = new forumModel({ userId, title, content, image, tag });
+    let newPost = new forumModel({
+      user: userId,
+      title,
+      content,
+      image,
+      tag,
+    });
 
     newPost
       .save()
