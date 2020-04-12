@@ -29,7 +29,14 @@ module.exports = {
             email: result.email,
           }, { password: hashed })
           .then(result => {
-            const { _id, email, firstName, lastName, role } = result;
+            const {
+              _id,
+              email,
+              firstName,
+              lastName,
+              role,
+            } = result;
+
             res
               .status(201)
               .json({
@@ -56,47 +63,47 @@ module.exports = {
     const { email, password } = req.body;
 
     users
-      .findOne({
-        email: email,
-      }, (err, userLogin) => {
-        if (err) {
+      .findOne({ email })
+      .then(result => {
+        if (bcrypt.compareSync(password, result.password)) { 
+          let token = 
+            jwt.sign({
+              userId: result.id,
+              userEmail: result.email,
+              userRole: result.role,
+            }, process.env.SECRET);
+
+          const {
+            _id,
+            firstName,
+            lastName,
+            email,
+            role,
+          } = result;
+
           res
-            .status(500)
+            .status(200)
             .send({
-              message: err
-            })
+              isLogin: true,
+              user: {
+                _id,
+                firstName,
+                lastName,
+                email,
+                role,
+              },
+              token,
+            });
         } else {
-          if (bcrypt.compareSync(password, userLogin.password)) {          
-            let token = 
-              jwt.sign({
-                userId: userLogin.id,
-                userEmail: userLogin.email,
-                userRole: userLogin.role,
-              }, process.env.SECRET);
-
-            const {
-              _id,
-              firstName,
-              lastName,
-              email,
-              role,
-            } = userLogin;
-
-            res
-              .status(200)
-              .send({
-                isLogin: true,
-                nowLogin: {
-                  _id,
-                  firstName,
-                  lastName,
-                  email,
-                  role,
-                },
-                token,
-              });
-          }
+          res
+            .status(400)
+            .send({message: 'Password Salah'})
         }
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .send({message: err})
       })
   },
   getUserById: (req, res) => {

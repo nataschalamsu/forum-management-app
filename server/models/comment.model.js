@@ -6,5 +6,8 @@ module.exports = {
     type: Schema.Types.ObjectId,
     ref: 'user'
   },
-  comment: String
+  comment: {
+    type: String,
+    require: [true, 'Comment cannot be empty'],
+  }
 };
