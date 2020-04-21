@@ -1,4 +1,4 @@
-const URL = 'https://forum-management-app.herokuapp.com/';
+const URL = 'https://forum-management-app.herokuapp.com';
 
 export const URLs = {
   USER_URL: `${URL}/users`,
