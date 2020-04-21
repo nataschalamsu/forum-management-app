@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const dbUrl = `mongodb+srv://admin:${process.env.PASS_DB}@cluster0-1o9kj.mongodb.net/test?retryWrites=true&w=majority`;
-console.log('pass ---- ', process.env.PASS_DB);
+
 const db = mongoose.connection;
 mongoose.connect(
   dbUrl,
